@@ -43,13 +43,16 @@ class QuoteBot(Bot):
 
 
 class YoutubeBot(Bot):
-    pass
+    def _message_handler(self, update, context):
+        """Main messages handler"""
+        self.send_text(update, f'Your original message: {update.message.text}')
 
 
 if __name__ == '__main__':
-    with open('.telegramToken') as f:
+    with open('.telegramToken', 'r') as f:
+        f.seek(0)
         _token = f.read()
 
-    my_bot = Bot(_token)
+    my_bot = Bot("5455967944:AAGgO9z5A2uPC-RW-WtfL0wCEvwv1yl27xI")
     my_bot.start()
 
