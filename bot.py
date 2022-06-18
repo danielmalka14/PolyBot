@@ -46,6 +46,8 @@ class YoutubeBot(Bot):
     def _message_handler(self, update, context):
         """Main messages handler"""
         self.send_text(update, f'Your original message: {update.message.text}')
+        search_download_youtube_video(video_name=update.message.text)
+
 
 
 if __name__ == '__main__':
