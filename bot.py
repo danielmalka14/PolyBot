@@ -26,7 +26,7 @@ class Bot:
 
     def send_video(self, update: object, context: object, file_path: object) -> object:
         """Sends video to a chat"""
-        context.bot.send_video(chat_id=update.message.chat_id, video=open(file_path, 'rb'), supports_streaming=True)
+        context.bot.send_video(chat_id=update.message.chat_id, video=open(file_path, 'rb'), supports_streaming=True, timeout=200)
 
     def send_text(self, update,  text, quote=False):
         """Sends text to a chat"""
@@ -47,7 +47,7 @@ class QuoteBot(Bot):
 class YoutubeBot(Bot):
     def _message_handler(self, update, context):
         """Main messages handler"""
-        # temp_file = temp_path = glob.glob('/home/daniel/PycharmProjects/pythonProject/PolyBot/*.mp4')
+        temp_file = glob.glob('/home/daniel/PycharmProjects/pythonProject/PolyBot/*.mp4')[0]
         search_download_youtube_video(update.message.text)
         self.send_video(update, context, file_path=temp_file)
 
@@ -61,4 +61,3 @@ if __name__ == '__main__':
     # my_quote.start()
     my_video = YoutubeBot(_token)
     my_video.start()
-
