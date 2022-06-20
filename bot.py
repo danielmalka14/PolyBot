@@ -1,4 +1,6 @@
 from telegram.ext import Updater, MessageHandler, Filters
+import glob
+import PolyBot.bot
 from utils import search_download_youtube_video
 from loguru import logger
 
@@ -22,7 +24,7 @@ class Bot:
         """Main messages handler"""
         self.send_text(update, f'Your original message: {update.message.text}')
 
-    def send_video(self, update, context, file_path):
+    def send_video(self, update: object, context: object, file_path: object) -> object:
         """Sends video to a chat"""
         context.bot.send_video(chat_id=update.message.chat_id, video=open(file_path, 'rb'), supports_streaming=True)
 
@@ -45,16 +47,18 @@ class QuoteBot(Bot):
 class YoutubeBot(Bot):
     def _message_handler(self, update, context):
         """Main messages handler"""
-        self.send_text(update, f'Your original message: {update.message.text}')
-        search_download_youtube_video(video_name=update.message.text)
-
-
+        # temp_file = temp_path = glob.glob('/home/daniel/PycharmProjects/pythonProject/PolyBot/*.mp4')
+        search_download_youtube_video(update.message.text)
+        self.send_video(update, context, file_path=temp_file)
 
 if __name__ == '__main__':
     with open('.telegramToken', 'r') as f:
-        f.seek(0)
-        _token = f.read()
+        _token = f.read().strip()
 
-    my_bot = Bot("5455967944:AAGgO9z5A2uPC-RW-WtfL0wCEvwv1yl27xI")
-    my_bot.start()
+    # my_bot = Bot(_token)
+    # my_bot.start()
+    # my_quote = QuoteBot(_token)
+    # my_quote.start()
+    my_video = YoutubeBot(_token)
+    my_video.start()
 
