@@ -1,6 +1,5 @@
 from telegram.ext import Updater, MessageHandler, Filters
 import glob
-import PolyBot.bot
 from utils import search_download_youtube_video
 from loguru import logger
 
