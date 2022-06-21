@@ -47,7 +47,7 @@ class QuoteBot(Bot):
 class YoutubeBot(Bot):
     def _message_handler(self, update, context):
         """Main messages handler"""
-        temp_file = glob.glob('/home/daniel/PycharmProjects/pythonProject/PolyBot/*.mp4')[0]
+        temp_file = glob.glob('*.mp4')[0]
         search_download_youtube_video(update.message.text)
         self.send_video(update, context, file_path=temp_file)
 
